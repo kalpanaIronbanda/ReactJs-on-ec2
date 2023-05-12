@@ -46,7 +46,7 @@ pipeline {
                 ssh ec2-user@${REMOTE_HOST} "sudo yum install -y nodejs"
                 ssh ec2-user@${REMOTE_HOST} "sudo npm install"
                 echo 'Starting reactjs application...'
-                ssh ec2-user@${REMOTE_HOST} "nohub npm start &"
+                ssh ec2-user@${REMOTE_HOST} "sudo nohub npm start &"
                 echo 'reactjs application started successfully!'
                 '''
                 }
