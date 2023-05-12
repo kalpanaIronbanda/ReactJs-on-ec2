@@ -1,11 +1,10 @@
 pipeline {
     agent any
-
-    parameters {
+        parameters {
         string(name: 'BUILD_NUMBER', defaultValue: '1', description: 'Build Number')
         string(name: 'bucketName', defaultValue: 'bucket name', description: 'bucket name')
         string(name: 'REMOTE_HOST', defaultValue: 'remote-host', description: 'Remote host')
-    }
+        }
 
     stages {
         stage('Build') {
@@ -36,6 +35,7 @@ pipeline {
                 rm -fr *.zip
                 echo 'reactjs application deployed successfully!'
                 '''
+                }
             }
         }
     }
