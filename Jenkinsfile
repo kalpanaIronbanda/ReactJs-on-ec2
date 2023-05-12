@@ -13,9 +13,9 @@ pipeline {
                 sh '''
                 echo 'Building reactjs application...'
                 rm -fr *.zip
-                zip -r reactjs-$BUILD_NUMBER.zip *
-                aws s3 cp reactjs-$BUILD_NUMBER.zip s3://'${params.bucketName}'/
-                #scp dependencies.sh ec2-user@{params.REMOTE_HOST}:/home/ec2-user/
+                zip -r reactjs-${BUILD_NUMBER}.zip *
+                aws s3 cp reactjs-${BUILD_NUMBER}.zip s3://${bucketName}/
+                #scp dependencies.sh ec2-user@${REMOTE_HOST}:/home/ec2-user/
                 rm -fr *
                 echo 'reactjs application built successfully!'
                 '''
@@ -28,10 +28,10 @@ pipeline {
                 script{
                 sh '''
                 echo 'Deploying reactjs application...'
-                ssh ec2-user@{params.REMOTE_HOST} "cd /home/ec2-user/ && sudo rm -rf *"
-                aws s3 cp s3://'${params.bucketName}'/reactjs-$BUILD_NUMBER .
-                scp reactjs-$BUILD_NUMBER.zip ec2-user@{params.REMOTE_HOST}:/home/ec2-user/
-                ssh ec2-user@{params.REMOTE_HOST} "cd /home/ec2-user/ && unzip reactjs-${params.BUILD_NUMBER} && sudo rm -rf *.zip"
+                ssh ec2-user@${REMOTE_HOST} "cd /home/ec2-user/ && sudo rm -rf *"
+                aws s3 cp s3://'${bucketName}'/reactjs-$BUILD_NUMBER .
+                scp reactjs-$BUILD_NUMBER.zip ec2-user@${REMOTE_HOST}:/home/ec2-user/
+                ssh ec2-user@${REMOTE_HOST} "cd /home/ec2-user/ && unzip reactjs-${params.BUILD_NUMBER} && sudo rm -rf *.zip"
                 rm -fr *.zip
                 echo 'reactjs application deployed successfully!'
                 '''
