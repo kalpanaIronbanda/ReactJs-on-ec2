@@ -13,8 +13,8 @@ pipeline {
                 sh '''
                 echo 'Building reactjs application...'
                 rm -fr *.zip
-                zip -r reactjs-${params.BUILD_NUMBER}.zip *
-                aws s3 cp reactjs-${params.BUILD_NUMBER}.zip s3://${params.bucketName}/
+                zip -r reactjs-$BUILD_NUMBER.zip *
+                aws s3 cp reactjs-$BUILD_NUMBER.zip s3://${params.bucketName}/
                 #scp dependencies.sh ec2-user@{params.REMOTE_HOST}:/home/ec2-user/
                 rm -fr *
                 echo 'reactjs application built successfully!'
