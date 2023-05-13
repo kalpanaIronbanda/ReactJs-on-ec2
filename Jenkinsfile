@@ -15,7 +15,6 @@ pipeline {
                 rm -fr *.zip
                 zip -r reactjs-${BUILD_NUMBER}.zip *
                 aws s3 cp reactjs-${BUILD_NUMBER}.zip s3://${bucketName}/
-                #scp dependencies.sh ec2-user@${REMOTE_HOST}:/home/ec2-user/
                 rm -fr *
                 echo 'reactjs application built successfully!'
                 '''
@@ -45,13 +44,21 @@ pipeline {
                 echo 'Installing npm...'
                 ssh ec2-user@${REMOTE_HOST} "sudo yum install -y nodejs"
                 ssh ec2-user@${REMOTE_HOST} "sudo npm install"
+                
+                '''
+                }
+            }
+        }
+        stage('Run'){
+            steps{
+                script{
+                sh '''
                 echo 'Starting reactjs application...'
-                ssh ec2-user@${REMOTE_HOST} "sudo npm start"
+                ssh ec2-user@${REMOTE_HOST} "sudo npm start &"
                 echo 'reactjs application started successfully!'
                 '''
                 }
             }
         }
-
     }
 }
