@@ -37,14 +37,14 @@ pipeline {
                 }
             }
         }
-        stage('Install and Run') {
+        stage('Install') {
             steps {
                 script{
                 sh '''
                 echo 'Installing npm...'
                 ssh ec2-user@${REMOTE_HOST} "sudo yum install -y nodejs"
                 ssh ec2-user@${REMOTE_HOST} "sudo npm install"
-                
+                echo 'Installed successfully...'
                 '''
                 }
             }
