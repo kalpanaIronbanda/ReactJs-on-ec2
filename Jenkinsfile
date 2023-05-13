@@ -38,6 +38,9 @@ pipeline {
             }
         }
         stage('Install') {
+            when {
+                beforeAgent true
+            }
             steps {
                 script{
                 sh '''
