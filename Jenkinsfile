@@ -1,7 +1,6 @@
 pipeline {
     agent any
         parameters {
-        string(name: 'BUILD_NUMBER', defaultValue: '1', description: 'Build Number')
         string(name: 'bucketName', defaultValue: 'bucket name', description: 'bucket name')
         string(name: 'REMOTE_HOST', defaultValue: 'remote-host', description: 'Remote host')
         }
@@ -21,7 +20,6 @@ pipeline {
                 }
             }
         }
-
         stage('Deploy') {
             steps {
                 script{
@@ -38,9 +36,6 @@ pipeline {
             }
         }
         stage('Install') {
-            when {
-                beforeAgent true
-            }
             steps {
                 script{
                 sh '''
